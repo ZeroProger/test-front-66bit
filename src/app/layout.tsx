@@ -3,10 +3,10 @@ import { paths } from './routes/paths'
 
 export function RootLayout() {
 	return (
-		<div className="w-full min-h-screen text-3xl">
-			<header className="">
-				<nav>
-					<ul>
+		<div className="w-full min-h-screen">
+			<header className="w-full min-h-10 bg-gray-600 px-8 py-4">
+				<nav className="h-full">
+					<ul className="h-full flex items-center gap-4 justify-between text-2xl">
 						<li>
 							<Link to={paths.home}>Главная</Link>
 						</li>
