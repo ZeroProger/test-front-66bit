@@ -1,12 +1,12 @@
 import { Home } from '@/pages/home'
 import { Themes } from '@/pages/themes'
+import { AppUrls } from '@/shared/routes/urls'
 import { createBrowserRouter } from 'react-router-dom'
-import { RootLayout } from '../layout'
-import { paths } from './paths'
+import { RootLayout } from './layout'
 
 export const router = createBrowserRouter([
 	{
-		path: paths.home,
+		path: AppUrls.home,
 		element: <RootLayout />,
 		children: [
 			{
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: paths.themes,
+				path: AppUrls.themes,
 				element: <Themes />,
 			},
 		],

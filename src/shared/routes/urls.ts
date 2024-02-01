@@ -1,4 +1,4 @@
-export const paths = {
+export const AppUrls = {
 	home: '/',
 	themes: '/themes'
 }

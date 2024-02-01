@@ -1,0 +1,1 @@
+export const NEWS_LS_KEY = 'news'

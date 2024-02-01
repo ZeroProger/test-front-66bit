@@ -1,3 +1,7 @@
 .container {
 	width: 100%;
+
+	.subheader {
+		@apply flex gap-6 justify-between items-center pb-4;
+	}
 }
