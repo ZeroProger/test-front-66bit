@@ -1,30 +1,59 @@
 import { ApiUrls } from '@/shared/api/urls'
 import { SERVER_URL } from '@/shared/config'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { fetchNews } from '../api'
 
 export function useNews() {
-	const page = 1
-	const count = 10
-	const requestUrl = `${SERVER_URL}/api${ApiUrls.news}?page=${page}&count=${count}`
-	const [news, setNews] = useState<Article[] | null>(null)
+	const [page, setPage] = useState(1)
+	const [news, setNews] = useState<Article[]>([])
 	const [offline, setOffline] = useState(!navigator.onLine)
 
-	const getNews = async () => {
-		const { data: news } = await fetchNews(page, count)
+	const newsCount = 10
+	const requestUrl = `${SERVER_URL}/api${ApiUrls.news}?page=${page}&count=${newsCount}`
 
-		setNews(news)
+	const getNews = useCallback(
+		async (refresh: boolean = false) => {
+			const { data } = await fetchNews(refresh ? 1 : page, newsCount)
 
-		if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+			if (refresh) {
+				setNews(data)
+				setPage(2)
+			} else {
+				setNews((prev) => [...prev, ...data])
+				setPage((prev) => prev + 1)
+			}
+
+			if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+				const cache = await caches.open('news-cache-v1')
+
+				const request = new Request(requestUrl)
+				cache.add(request)
+			}
+		},
+		[page]
+	)
+
+	const refreshNews = useCallback(async () => {
+		getNews(true)
+
+		if (offline) {
+			getNewsFromCache()
+			return
+		}
+	}, [])
+
+	const getNewsFromCache = async () => {
+		if ('caches' in window) {
 			const cache = await caches.open('news-cache-v1')
-			const request = new Request(requestUrl)
-			cache.add(request)
+			const response = await cache.match(requestUrl)
+			if (response) {
+				const data = await response.json()
+				setNews(data)
+			}
 		}
 	}
 
 	useEffect(() => {
-		getNews()
-
 		const handleOnline = () => setOffline(false)
 		const handleOffline = () => setOffline(true)
 
@@ -38,22 +67,10 @@ export function useNews() {
 	}, [])
 
 	useEffect(() => {
-		const getNewsFromCache = async () => {
-			if ('caches' in window) {
-				const cache = await caches.open('news-cache-v1')
-				const response = await cache.match(requestUrl)
-
-				if (response) {
-					const data = await response.json()
-					setNews(data)
-				}
-			}
-		}
-
 		if (offline) {
 			getNewsFromCache()
 		}
 	}, [offline])
 
-	return { news, getNews }
+	return { news, offline, getNews, refreshNews, getNewsFromCache }
 }

@@ -1,14 +1,10 @@
 import { useNews } from '@/entities/news/lib/use-news'
 
 export function RefreshNews() {
-	const { getNews } = useNews()
-
-	const handleRefreshNews = () => {
-		getNews()
-	}
+	const { refreshNews } = useNews()
 
 	return (
-		<button className="" onClick={handleRefreshNews}>
+		<button className="" onClick={refreshNews}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="32"

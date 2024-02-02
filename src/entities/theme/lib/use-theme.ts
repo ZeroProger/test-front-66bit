@@ -25,7 +25,6 @@ export function useTheme() {
 
 	useEffect(() => {
 		if (theme) {
-			console.log(theme)
 			document.documentElement.style.setProperty('--main-color', `${theme.mainColor}`)
 			document.documentElement.style.setProperty('--second-color', `${theme.secondColor}`)
 			document.documentElement.style.setProperty('--text-color', `${theme.textColor}`)

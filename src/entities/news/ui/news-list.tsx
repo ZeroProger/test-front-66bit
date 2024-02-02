@@ -1,8 +1,22 @@
+import { InfiniteScroll } from '@/features/infinite-scroll'
+import PullToRefresh from 'pulltorefreshjs'
+import { useEffect } from 'react'
 import { useNews } from '../lib/use-news'
 import styles from './styles.module.scss'
 
 export function NewsList() {
-	const { news } = useNews()
+	const { news, getNews, refreshNews, offline, getNewsFromCache } = useNews()
+
+	useEffect(() => {
+		getNews()
+
+		PullToRefresh.init({
+			mainElement: 'body',
+			onRefresh: refreshNews,
+		})
+
+		return () => PullToRefresh.destroyAll()
+	}, [])
 
 	if (news === null || news.length === 0)
 		return <div className="text-xl text-center">Загрузка...</div>
@@ -15,6 +29,7 @@ export function NewsList() {
 					<p className="text-text-color">{article.content}</p>
 				</div>
 			))}
+			<InfiniteScroll next={offline ? getNewsFromCache : getNews} />
 		</div>
 	)
 }

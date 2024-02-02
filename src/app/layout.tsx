@@ -1,12 +1,9 @@
-import { registerServiceWorker } from '@/shared/lib/register-service-worker'
+import { useTheme } from '@/entities/theme/lib/use-theme'
 import { AppUrls } from '@/shared/routes/urls'
-import { useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 export function RootLayout() {
-	useEffect(() => {
-		registerServiceWorker()
-	}, [])
+	useTheme()
 
 	return (
 		<div className="">
