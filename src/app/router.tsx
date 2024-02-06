@@ -1,12 +1,12 @@
 import { Home } from '@/pages/home'
-import { Themes } from '@/pages/themes'
-import { AppUrls } from '@/shared/routes/urls'
+import { Employee } from '@/pages/employee'
+import { RouterPaths } from '@/shared/routes/urls'
 import { createBrowserRouter } from 'react-router-dom'
 import { RootLayout } from './layout'
 
 export const router = createBrowserRouter([
 	{
-		path: AppUrls.home,
+		path: RouterPaths.home,
 		element: <RootLayout />,
 		children: [
 			{
@@ -14,8 +14,8 @@ export const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: AppUrls.themes,
-				element: <Themes />,
+				path: RouterPaths.employee,
+				element: <Employee />,
 			},
 		],
 	},

@@ -1,4 +1,4 @@
 export const ApiUrls = {
-	news: '/news/get',
-	theme: '/theme/get'
+	employees: '/Employee',
+	employee: (id: number | string) => `/Employee/${id}`
 }

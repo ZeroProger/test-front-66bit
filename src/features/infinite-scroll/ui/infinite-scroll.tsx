@@ -1,32 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { ReactNode } from 'react'
+import { useInfiniteScroll } from '../lib/use-infinite-scroll'
 
-interface Props {
-	next: () => Promise<void>
+interface InfiniteScrollProps<T> {
+	next: () => Promise<T[]>
+	items: T[]
+	renderItem: (item: T) => ReactNode
 }
 
-export function InfiniteScroll({ next }: Props) {
-	const observerTarget = useRef(null)
+export function InfiniteScroll<T>({ next, items, renderItem }: InfiniteScrollProps<T>) {
+	const { isLoading, lastItemRef } = useInfiniteScroll(next, items)
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			async (entries) => {
-				if (entries[0].isIntersecting) {
-					await next()
-				}
-			},
-			{ threshold: 1.0, rootMargin: '400px' }
-		)
-
-		if (observerTarget.current) {
-			observer.observe(observerTarget.current)
-		}
-
-		return () => {
-			if (observerTarget.current) {
-				observer.unobserve(observerTarget.current)
-			}
-		}
-	}, [next, observerTarget])
-
-	return <div ref={observerTarget} />
+	return (
+		<div>
+			{items.map(renderItem)}
+			{isLoading && <div>Loading...</div>}
+			<div ref={lastItemRef} />
+		</div>
+	)
 }

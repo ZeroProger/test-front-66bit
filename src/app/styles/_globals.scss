@@ -17,7 +17,7 @@ html {
 }
 
 body {
-	@apply bg-second-color text-md;
+	@apply bg-background text-foreground text-md;
 
 	min-width: 320px;
 	min-height: 100dvh;

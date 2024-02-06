@@ -1,4 +1,9 @@
-export const AppUrls = {
+export const RouterPaths = {
 	home: '/',
-	themes: '/themes'
+	employee: '/employee/:id'
+}
+
+export const RouterUrls = {
+	home: '/',
+	employee: (id: number | string) => `/employee/${id}`
 }

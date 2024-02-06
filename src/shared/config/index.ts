@@ -1,1 +1,1 @@
-export const SERVER_URL = 'https://frontappapi.dock7.66bit.ru'
+export const SERVER_URL = 'https://frontend-test-api.stk8s.66bit.ru'
