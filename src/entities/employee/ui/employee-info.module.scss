@@ -1,0 +1,67 @@
+@import '@/app/styles/_mixins.scss';
+
+.employeeInfo {
+	@apply grid gap-x-4 sm:gap-x-[42px];
+
+	grid-template-areas:
+		'photo name'
+		'photo position'
+		'photo stack';
+	grid-template-rows: auto auto auto;
+	grid-template-columns: 163px 1fr;
+
+	@include md('sm', max) {
+		grid-template-areas:
+			'photo name'
+			'photo position'
+			'stack stack';
+
+		grid-template-columns: 100px 1fr;
+
+		.stack {
+			@apply mt-4;
+		}
+	}
+
+	.photo {
+		@apply w-[100px] h-[100px] sm:w-[163px] sm:h-[163px] rounded-full;
+
+		grid-area: photo;
+	}
+
+	.name {
+		@apply text-xl sm:text-4xl mb-4;
+
+		grid-area: name;
+	}
+
+	.position {
+		@apply text-md sm:text-2xl mb-6;
+
+		grid-area: position;
+	}
+
+	.stack {
+		@apply flex items-center gap-4 flex-nowrap overflow-x-auto;
+
+		grid-area: stack;
+
+		.technology {
+			@apply bg-accent px-[21.5px] py-[10px] rounded-md text-xs sm:text-md;
+		}
+	}
+}
+
+.mainInfo {
+	.data {
+		@apply flex items-center gap-4;
+
+		.label {
+			@apply min-w-[140px] sm:min-w-[270px] text-sm sm:text-2xl font-medium;
+		}
+
+		.value {
+			@apply text-sm sm:text-2xl font-normal;
+		}
+	}
+}

@@ -1,20 +1,27 @@
 import { ReactNode } from 'react'
-import { useInfiniteScroll } from '../lib/use-infinite-scroll'
+import InfiniteScrollComponent from 'react-infinite-scroll-component'
 
 interface InfiniteScrollProps<T> {
 	next: () => Promise<T[]>
 	items: T[]
-	renderItem: (item: T) => ReactNode
+	hasMore: boolean
+	children: ReactNode
 }
 
-export function InfiniteScroll<T>({ next, items, renderItem }: InfiniteScrollProps<T>) {
-	const { isLoading, lastItemRef } = useInfiniteScroll(next, items)
-
+export function InfiniteScroll<T>({ next, items, hasMore, children }: InfiniteScrollProps<T>) {
 	return (
-		<div>
-			{items.map(renderItem)}
-			{isLoading && <div>Loading...</div>}
-			<div ref={lastItemRef} />
-		</div>
+		<InfiniteScrollComponent
+			dataLength={items.length}
+			next={next}
+			hasMore={hasMore}
+			loader={<span>Загрузка...</span>}
+			endMessage={
+				<p className="text-2xl text-center py-6">
+					Это все сотрудники найденные по выбранными фильтрами
+				</p>
+			}
+		>
+			{children}
+		</InfiniteScrollComponent>
 	)
 }

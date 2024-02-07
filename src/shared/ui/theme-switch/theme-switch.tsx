@@ -14,7 +14,6 @@ export function ThemeSwitch() {
 		<Switch
 			checked={theme === 'dark'}
 			onCheckedChange={onChange}
-			className="h-[26px]"
 			icon={theme === 'dark' ? <Moon /> : <Sun />}
 		/>
 	)

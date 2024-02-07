@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+import { EmployeesRequest } from '@/entities/employee'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -5,21 +7,29 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-export const getSearchParamsString = (searchParams?: Record<string, unknown>) => {
-	let paramsString = ''
+export function convertToQueryString(params: EmployeesRequest): string {
+	const queryStringParams: string[] = []
 
-	if (searchParams !== undefined) {
-		for (const key in searchParams) {
-			// eslint-disable-next-line no-prototype-builtins
-			if (searchParams.hasOwnProperty(key)) {
-				const strKey = String(key)
-				const strValue = String(searchParams[key])
-				if (strValue.length > 0) {
-					paramsString += `${strKey.trim()}=${strValue.trim()}&`
-				}
+	for (const key in params) {
+		if (
+			params.hasOwnProperty(key) &&
+			params[key] !== undefined &&
+			params[key] !== null &&
+			params[key] !== ''
+		) {
+			const value = params[key]
+
+			if (Array.isArray(value) && value.length === 0) continue
+
+			if (Array.isArray(value) && value.length > 0) {
+				queryStringParams.push(
+					`${key}=${value.map((item) => encodeURIComponent(String(item))).join(`&${key}=`)}`
+				)
+			} else {
+				queryStringParams.push(`${key}=${encodeURIComponent(String(value))}`)
 			}
 		}
 	}
 
-	return paramsString.substring(0, paramsString.length - 1)
+	return queryStringParams.length > 0 ? `?${queryStringParams.join('&')}` : ''
 }

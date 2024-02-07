@@ -1,0 +1,19 @@
+.breadcrumbs {
+	@apply content-container px-layout py-[15px] sm:py-[28px] flex items-center flex-nowrap;
+
+	.breadcrumb {
+		@apply flex items-center font-medium;
+
+		span {
+			@apply text-xs sm:text-lg text-muted/80 whitespace-nowrap overflow-ellipsis overflow-hidden;
+		}
+
+		&:not(:first-child) {
+			&::before {
+				@apply text-muted text-xs sm:text-lg font-medium px-3 sm:px-4;
+
+				content: '>';
+			}
+		}
+	}
+}

@@ -52,16 +52,27 @@ const config: Config = {
 				},
 			},
 			spacing: {
-				layout: '1rem',
-				'layout-sm': '0.75rem',
-				'layout-xs': '0.5rem',
+				layout: '1.5rem',
 			},
 			fontSize: {
-				md: '1rem',
-				lg: '1.125rem',
+				'2xs': ['10px', '12px'],
+				xs: ['12px', '14px'],
+				sm: ['14px', '16px'],
+				md: ['16px', '18px'],
+				lg: ['18px', '21px'],
+				xl: ['20px', '24px'],
+				'2xl': ['24px', '28px'],
+				'3xl': ['32px', '37px'],
+				'4xl': ['40px', '47px'],
+			},
+			borderRadius: {
+				sm: 'calc(var(--radius) - 2px)',
+				md: 'calc(var(--radius))',
+				lg: 'calc(var(--radius) + 2px)',
+				xl: 'calc(var(--radius) + 4px)',
 			},
 			fontFamily: {
-				sans: ['Rubik'],
+				sans: ['Railway, sans-serif'],
 			},
 		},
 	},
@@ -74,7 +85,10 @@ const config: Config = {
 					margin: '0 auto',
 				},
 				'.shadow-header': {
-					boxShadow: '0px 4px 4px 0px #0000001A',
+					boxShadow: 'var(--header-shadow)',
+				},
+				'.shadow-select': {
+					boxShadow: 'var(--select-shadow)',
 				},
 			})
 		}),

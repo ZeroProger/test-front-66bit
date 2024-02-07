@@ -1,6 +1,6 @@
 export const RouterPaths = {
 	home: '/',
-	employee: '/employee/:id'
+	employee: '/employee/:employeeId'
 }
 
 export const RouterUrls = {

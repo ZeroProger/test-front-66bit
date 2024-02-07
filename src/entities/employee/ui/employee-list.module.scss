@@ -1,0 +1,29 @@
+.table {
+	@apply w-full flex flex-col overflow-x-auto;
+
+	thead {
+		@apply px-layout;
+
+		tr {
+			@apply py-1;
+
+			th {
+				@apply text-2xs sm:text-xl text-muted font-medium;
+			}
+		}
+	}
+
+	tbody {
+		@apply px-3;
+
+		tr {
+			td {
+				@apply text-xs sm:text-xl;
+			}
+		}
+	}
+
+	.employee {
+		@apply flex items-center flex-nowrap gap-4 py-7 px-3 border-b-2 border-white transition-colors bg-transparent hover:bg-accent cursor-pointer;
+	}
+}

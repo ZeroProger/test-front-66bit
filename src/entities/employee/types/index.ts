@@ -1,4 +1,4 @@
-type Employee = {
+export type Employee = {
 	id: number
 	name: string
 	photo: string
@@ -10,13 +10,13 @@ type Employee = {
 	dateOfEmployment: string
 }
 
-type Techology = `${keyof typeof ETehnology}`
+export type Technology = `${keyof typeof ETechnology}`
 
-type Gender = `${keyof typeof EGender}`
+export type Gender = `${keyof typeof EGender}`
 
-type Position = `${keyof typeof EPosition}`
+export type Position = `${keyof typeof EPosition}`
 
-enum ETehnology {
+export enum ETechnology {
 	CSharp = 'CSharp',
 	React = 'React',
 	Java = 'Java',
@@ -25,7 +25,7 @@ enum ETehnology {
 	Word = 'Word',
 }
 
-enum EPosition {
+export enum EPosition {
 	Frontend = 'Frontend',
 	Backend = 'Backend',
 	Analyst = 'Analyst',
@@ -33,17 +33,17 @@ enum EPosition {
 	Designer = 'Designer',
 }
 
-enum EGender {
+export enum EGender {
 	Male = 'Male',
 	Female = 'Female',
 }
 
-enum EGenderReadable {
+export enum EGenderReadable {
 	Male = 'Мужчина',
 	Female = 'Женщина',
 }
 
-enum EPositionReadable {
+export enum EPositionReadable {
 	Frontend = 'Frontend-разработчик',
 	Backend = 'Backend-разработчик',
 	Analyst = 'Аналитик',
