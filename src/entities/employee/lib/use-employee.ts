@@ -1,23 +1,14 @@
-import { useState } from 'react'
+import { QueryKeys } from '@/shared/lib/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { fetchEmployee } from '../api'
-import { Employee } from '../types'
 
-export function useEmployee() {
-	const [employee, setEmployee] = useState<Employee | null>(null)
-	const [isLoading, setIsLoading] = useState(false)
+export function useEmployee(employeeId: number | string) {
+	const { data: employee, isLoading } = useQuery({
+		queryKey: [QueryKeys.employee, employeeId],
+		queryFn: () => fetchEmployee(employeeId),
+		select: (data) => data.data,
+		enabled: !!employeeId,
+	})
 
-	const getEmployee = async (employeeId: number | string) => {
-		setIsLoading(true)
-
-		const { data } = await fetchEmployee(employeeId)
-		setEmployee(data)
-
-		setIsLoading(false)
-	}
-
-	const resetEmployee = () => {
-		setEmployee(null)
-	}
-
-	return { employee, isLoading, getEmployee, resetEmployee }
+	return { employee, isLoading }
 }
