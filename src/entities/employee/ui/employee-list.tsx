@@ -1,6 +1,5 @@
 import { InfiniteScroll } from '@/features/infinite-scroll'
 import { RouterUrls } from '@/shared/routes/urls'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEmployees } from '../lib'
 import { Employee } from '../types'
@@ -9,19 +8,13 @@ import styles from './employee-list.module.scss'
 export function EmployeeList() {
 	const navigate = useNavigate()
 
-	const { employees, isLoading, hasMoreItems, getEmployees, nextEmployees } = useEmployees()
+	const { employees, isFetching, hasNextPage, fetchNextPage } = useEmployees()
 
 	const handleEmployeeClick = (employeeId: number | string) => {
 		navigate(RouterUrls.employee(employeeId))
 	}
 
-	useEffect(() => {
-		getEmployees({})
-	}, [])
-
-	if (isLoading) return <div className="text-3xl text-center">Загрузка...</div>
-
-	if (employees.length === 0 && !isLoading)
+	if ((!employees || employees.length === 0) && !isFetching)
 		return (
 			<div className="text-3xl text-center">По выбранным фильтрам не найдено ни 1 сотрудника</div>
 		)
@@ -42,7 +35,7 @@ export function EmployeeList() {
 	}
 
 	return (
-		<InfiniteScroll items={employees} next={nextEmployees} hasMore={hasMoreItems}>
+		<InfiniteScroll items={employees || []} next={fetchNextPage} hasMore={hasNextPage}>
 			<table className={styles.table}>
 				<thead>
 					<tr className="flex items-center gap-4">
@@ -52,7 +45,7 @@ export function EmployeeList() {
 						<th className="text-start basis-[200px] min-w-[200px]">Дата рождения</th>
 					</tr>
 				</thead>
-				<tbody>{employees.map(renderEmployee)}</tbody>
+				<tbody>{employees?.map(renderEmployee)}</tbody>
 			</table>
 		</InfiniteScroll>
 	)

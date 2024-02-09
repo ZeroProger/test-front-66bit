@@ -13,6 +13,15 @@ export type EmployeesRequest = {
 	[key: string]: number | string | string[] | undefined
 }
 
+export type EmployeesRequestWithoutPage = {
+	count: number | string
+	name?: string
+	gender?: Gender[]
+	position?: Position[]
+	stack?: Technology[]
+	[key: string]: number | string | string[] | undefined
+}
+
 export function fetchEmployees(params: EmployeesRequest) {
 	const searchParamsString = convertToQueryString(params)
 

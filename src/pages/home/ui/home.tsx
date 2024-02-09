@@ -2,37 +2,23 @@ import {
 	EGenderReadable,
 	EPositionReadable,
 	EmployeeList,
-	useEmployees,
 	useFilterEmployees,
 } from '@/entities/employee'
-import { resetPageFn } from '@/entities/employee/model'
 import { FilterEmployees } from '@/features/filter-employees'
 import { SearchEmployees } from '@/features/search-employees'
 import { Button } from '@/shared/ui/button'
-import { useUnit } from 'effector-react'
 import { X } from 'lucide-react'
 import { useEffect } from 'react'
 import styles from './styles.module.scss'
 
 export function Home() {
-	const [resetPage] = useUnit([resetPageFn])
 	const { filters, resetFilters, changeGenderFilter, changePositionFilter, changeStackFilter } =
 		useFilterEmployees()
-	const { getEmployees } = useEmployees()
 
-	const handleSearch = () => {
-		getEmployees({
-			name: filters.searchTerm,
-			position: filters.position,
-			gender: filters.gender,
-			stack: filters.stack,
-		})
-	}
+	const handleSearch = () => {}
 
 	const handleResetFilters = () => {
 		resetFilters()
-		resetPage()
-		getEmployees({})
 	}
 
 	useEffect(() => {
