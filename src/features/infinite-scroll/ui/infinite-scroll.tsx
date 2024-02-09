@@ -16,11 +16,11 @@ export function InfiniteScroll<T>({ next, items, hasMore, children }: InfiniteSc
 			hasMore={hasMore}
 			loader={<span className="text-2xl text-center py-4">Загрузка...</span>}
 			endMessage={
-				items.length > 0 && (
+				items.length > 0 ? (
 					<p className="text-2xl text-center py-6">
 						Это все сотрудники найденные по выбранным фильтрам
 					</p>
-				)
+				) : null
 			}
 		>
 			{children}
