@@ -7,8 +7,8 @@ export type EmployeesRequest = {
 	page: number | string
 	count: number | string
 	name?: string
-	gender?: Gender[]
-	position?: Position[]
+	gender?: Gender
+	position?: Position
 	stack?: Technology[]
 	[key: string]: number | string | string[] | undefined
 }
@@ -16,8 +16,8 @@ export type EmployeesRequest = {
 export type EmployeesRequestWithoutPage = {
 	count: number | string
 	name?: string
-	gender?: Gender[]
-	position?: Position[]
+	gender?: Gender
+	position?: Position
 	stack?: Technology[]
 	[key: string]: number | string | string[] | undefined
 }
