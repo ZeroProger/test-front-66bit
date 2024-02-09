@@ -2,11 +2,9 @@ import { QueryKeys } from '@/shared/lib/react-query'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useFilterEmployees } from '.'
 import { EmployeesRequestWithoutPage, fetchEmployees } from '../api'
-import { useState } from 'react'
 
 export function useEmployees() {
 	const count = 10
-	const [allowFetch, setAllowFetch] = useState(false)
 
 	const { filters } = useFilterEmployees()
 
