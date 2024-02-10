@@ -45,7 +45,7 @@ export function FilterEmployees() {
 					{positions.map((position) => (
 						<DropdownMenuCheckboxItem
 							key={position}
-							checked={filters.position.find((p) => p === position) !== undefined}
+							checked={filters.position === position}
 							onCheckedChange={() => handleChangePosition(position)}
 						>
 							{EPositionReadable[position]}
@@ -64,7 +64,7 @@ export function FilterEmployees() {
 					{genders.map((gender) => (
 						<DropdownMenuCheckboxItem
 							key={gender}
-							checked={filters.gender.find((g) => g === gender) !== undefined}
+							checked={filters.gender === gender}
 							onCheckedChange={() => handleChangeGender(gender)}
 						>
 							{EGenderReadable[gender]}

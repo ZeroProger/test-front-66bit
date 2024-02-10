@@ -35,26 +35,26 @@ export function Home() {
 			<div className={styles.pickedFilters}>
 				<span className={styles.label}>Выбранные фильтры:</span>
 				<div className={styles.filters}>
-					{filters.position.map((position) => (
+					{filters.position && (
 						<Button
-							key={`picked-filter-${position}`}
+							key={`picked-filter-${filters.position}`}
 							className="bg-background hover:bg-background/60 rounded-md px-[10px] py-2 text-md font-normal flex gap-1 items-center text-foreground"
-							onClick={() => changePositionFilter(position)}
+							onClick={() => changePositionFilter()}
 						>
 							<X size={20} />
-							{EPositionReadable[position]}
+							{EPositionReadable[filters.position]}
 						</Button>
-					))}
-					{filters.gender.map((gender) => (
+					)}
+					{filters.gender && (
 						<Button
-							key={`picked-filter-${gender}`}
+							key={`picked-filter-${filters.gender}`}
 							className="bg-background hover:bg-background/60 rounded-md px-[10px] py-2 text-md font-normal flex gap-1 items-center text-foreground"
-							onClick={() => changeGenderFilter(gender)}
+							onClick={() => changeGenderFilter()}
 						>
 							<X size={20} />
-							{EGenderReadable[gender]}
+							{EGenderReadable[filters.gender]}
 						</Button>
-					))}
+					)}
 					{filters.stack.map((technology) => (
 						<Button
 							key={`picked-filter-${technology}`}

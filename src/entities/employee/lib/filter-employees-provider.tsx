@@ -3,16 +3,16 @@ import { createContext, useContext, useState } from 'react'
 import { Gender, Position, Technology } from '../types'
 
 interface FilterState {
-	gender: Gender[]
-	position: Position[]
+	gender: Gender | undefined
+	position: Position | undefined
 	stack: Technology[]
 	searchTerm: string
 }
 
 interface FilterContextType {
 	filters: FilterState
-	changeGenderFilter: (gender: Gender) => void
-	changePositionFilter: (position: Position) => void
+	changeGenderFilter: (gender?: Gender) => void
+	changePositionFilter: (position?: Position) => void
 	changeStackFilter: (technology: Technology) => void
 	changeSearchTerm: (searchTerm: string) => void
 	resetFilters: () => void
@@ -21,8 +21,8 @@ interface FilterContextType {
 const FilterContext = createContext<FilterContextType | undefined>(undefined)
 
 const initialFiltersState: FilterState = {
-	gender: [],
-	position: [],
+	gender: undefined,
+	position: undefined,
 	stack: [],
 	searchTerm: '',
 }
@@ -31,24 +31,12 @@ const initialFiltersState: FilterState = {
 export const FilterEmployeesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [filters, setFilters] = useState<FilterState>(initialFiltersState)
 
-	const changeGenderFilter = (gender: Gender) => {
-		const hasFilters = filters.gender.find((g) => g === gender)
-
-		if (hasFilters) {
-			setFilters((prev) => ({ ...prev, gender: filters.gender.filter((g) => g !== gender) }))
-		} else {
-			setFilters((prev) => ({ ...prev, gender: [...prev.gender, gender] }))
-		}
+	const changeGenderFilter = (gender?: Gender) => {
+		setFilters((prev) => ({ ...prev, gender }))
 	}
 
-	const changePositionFilter = (position: Position) => {
-		const hasFilters = filters.position.find((p) => p === position)
-
-		if (hasFilters) {
-			setFilters((prev) => ({ ...prev, position: filters.position.filter((p) => p !== position) }))
-		} else {
-			setFilters((prev) => ({ ...prev, position: [...prev.position, position] }))
-		}
+	const changePositionFilter = (position?: Position) => {
+		setFilters((prev) => ({ ...prev, position }))
 	}
 
 	const changeStackFilter = (technology: Technology) => {
